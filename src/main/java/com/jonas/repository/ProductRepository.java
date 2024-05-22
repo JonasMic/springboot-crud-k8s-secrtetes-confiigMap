@@ -1,6 +1,6 @@
-package com.javatechie.repository;
+package com.jonas.repository;
 
-import com.javatechie.entity.Product;
+import com.jonas.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductRepository  extends JpaRepository<Product,Integer> {

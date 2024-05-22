@@ -1,7 +1,7 @@
-package com.javatechie.service;
+package com.jonas.service;
 
-import com.javatechie.entity.Product;
-import com.javatechie.repository.ProductRepository;
+import com.jonas.entity.Product;
+import com.jonas.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package com.javatechie.controller;
+package com.jonas.controller;
 
-import com.javatechie.entity.Product;
-import com.javatechie.service.ProductService;
+import com.jonas.entity.Product;
+import com.jonas.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
