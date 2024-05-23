@@ -1,0 +1,5 @@
+com\jonas\entity\Product.class
+com\jonas\repository\ProductRepository.class
+com\jonas\controller\ProductController.class
+com\jonas\InventoryServiceApplication.class
+com\jonas\service\ProductService.class
