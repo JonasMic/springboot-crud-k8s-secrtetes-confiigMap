@@ -14,18 +14,32 @@ spec:
     spec:
       containers:
         - name: springboot-crud-k8s
-          image: inventory-service:1.0
+          image: 'inventory-service:1.0'
           ports:
             - containerPort: 8080
           env:   # Setting Enviornmental Variables
-            - name: DB_HOST   # Setting Database host address from configMap-> that is dns
-              value: mysql
+            - name: DB_HOST   # Setting Database host address from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: host
             - name: DB_NAME  # Setting Database name from configMap
-              value: javatechie
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: dbName
             - name: DB_USERNAME  # Setting Database username from Secret
-              value: root
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: username
             - name: DB_PASSWORD # Setting Database password from Secret
-              value: root
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+
+
 
 ---
 

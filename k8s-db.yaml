@@ -1,9 +1,9 @@
 # Define a 'Persistent Voulume Claim'(PVC) for Mysql Storage, dynamically provisioned by cluster
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolumeClaim  #will allocate volume to the db instance
 metadata:
   name: mysql-pv-claim # name of PVC essential for identifying the storage data
-  labels: # for grouping the pods
+  labels: # for the grouping of the pods  purpose
     app: mysql
     tier: database
 spec:
@@ -38,10 +38,17 @@ spec:
         - image: mysql:5.7 # image from docker-hub
           name: mysql
           env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: root
+            - name: MYSQL_ROOT_PASSWORD  # Setting Database Name from a 'Secret'
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+
             - name: MYSQL_DATABASE # Setting Database Name from a 'ConfigMap'
-              value: javatechie
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: dbName
           ports:
             - containerPort: 3306
               name: mysql
@@ -51,7 +58,7 @@ spec:
       volumes:
         - name: mysql-persistent-storage # Obtaining 'volume' from PVC
           persistentVolumeClaim:
-            claimName: mysql-pv-claim  #get the volume from here and mount it to the path /var/lib/mysql
+            claimName: mysql-pv-claim
 ---
 # Define a 'Service' To Expose mysql to Other Services
 apiVersion: v1
@@ -68,4 +75,4 @@ spec:
   selector:       # mysql Pod Should contain same labels
     app: mysql
     tier: database
-  clusterIP: None
+  clusterIP: None  # will be accessed using dns
